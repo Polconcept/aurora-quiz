@@ -20,11 +20,11 @@ export function LandingPage({ onStartQuiz }: LandingPageProps) {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 md:px-8 py-12 max-w-4xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2D241E] mb-6 leading-tight text-balance">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-6 leading-tight text-balance">
             Still Managing Symptoms That Never Fully Go Away?
           </h1>
           
-          <p className="text-lg md:text-xl text-[#2D241E]/70 mb-10 leading-relaxed text-balance max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-[#2D241E]/70 mb-10 leading-relaxed text-balance max-w-2xl mx-auto">
             Whether it&apos;s allergies, skin flare-ups, or a mind that won&apos;t switch off, find out if halotherapy is the natural, drug-free relief you&apos;ve been looking for. Takes 10 seconds.
           </p>
 
