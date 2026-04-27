@@ -1,8 +1,8 @@
 'use client'
 
-import { CheckCircle2, ArrowRight, Star, Sparkles, Leaf, Play, ArrowLeft } from 'lucide-react'
+import { useState } from 'react'
+import { CheckCircle2, ArrowRight, Play, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import { QuizAnswer } from './quiz-flow'
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog'
 
 interface ResultsPageProps {
   answers: QuizAnswer[]
@@ -12,6 +12,8 @@ interface ResultsPageProps {
 }
 
 export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPageProps) {
+  const [showVideo, setShowVideo] = useState(false)
+  
   // Map answers to display labels
   const answerMap: { [key: number]: string } = {}
   answers.forEach((answer) => {
@@ -25,41 +27,32 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
     seriousness: answerMap[4] || 'Unknown',
   }
 
-  const renderVideoModal = (trigger: React.ReactNode) => (
-    <Dialog>
-      <DialogTrigger asChild>
-        {trigger}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] p-0 bg-black overflow-hidden border-none shadow-2xl">
-        <DialogTitle className="sr-only">How Halotherapy Works</DialogTitle>
-        <div className="aspect-video w-full relative">
-          <video 
-            src="/_How Halo Therapy Works_.mp4" 
-            controls 
-            autoPlay 
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </DialogContent>
-    </Dialog>
+  const renderEmbeddedVideo = () => (
+    <div className="mt-4 animate-fade-in w-full overflow-hidden rounded-xl border border-border/40 bg-black aspect-video relative">
+      <video 
+        src="/_How Halo Therapy Works_.mp4" 
+        controls 
+        className="w-full h-full object-contain"
+      />
+    </div>
   )
 
   const renderAssessmentSummary = () => (
-    <div className="mb-8 animate-slide-up" style={{ animationDelay: '200ms' }}>
-      <h3 className="text-lg font-bold text-foreground mb-4">Your Assessment Summary</h3>
+    <div className="mb-8 animate-slide-up">
+      <h3 className="text-lg font-bold text-foreground mb-4 text-left">Your Assessment Summary</h3>
       
       <div className="flex flex-col gap-3">
-        <div className="group rounded-lg border border-border/60 bg-card/60 backdrop-blur-sm p-4 hover:border-primary/40 hover:bg-card hover:shadow-lg transition-all duration-300">
-          <h4 className="font-bold text-foreground text-xs mb-1">Current condition:</h4>
-          <p className="text-sm text-foreground/80 leading-relaxed">{assessment.condition}</p>
+        <div className="rounded-lg border border-border/40 bg-card/40 p-4">
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Current condition:</h4>
+          <p className="text-sm text-foreground/80">{assessment.condition}</p>
         </div>
-        <div className="group rounded-lg border border-border/60 bg-card/60 backdrop-blur-sm p-4 hover:border-primary/40 hover:bg-card hover:shadow-lg transition-all duration-300">
-          <h4 className="font-bold text-foreground text-xs mb-1">How long it has been going on:</h4>
-          <p className="text-sm text-foreground/80 leading-relaxed">{assessment.duration}</p>
+        <div className="rounded-lg border border-border/40 bg-card/40 p-4">
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">How long it has been going on:</h4>
+          <p className="text-sm text-foreground/80">{assessment.duration}</p>
         </div>
-        <div className="group rounded-lg border border-border/60 bg-card/60 backdrop-blur-sm p-4 hover:border-primary/40 hover:bg-card hover:shadow-lg transition-all duration-300">
-          <h4 className="font-bold text-foreground text-xs mb-1">What you have already tried:</h4>
-          <p className="text-sm text-foreground/80 leading-relaxed">{assessment.tried}</p>
+        <div className="rounded-lg border border-border/40 bg-card/40 p-4">
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">What you have already tried:</h4>
+          <p className="text-sm text-foreground/80">{assessment.tried}</p>
         </div>
       </div>
     </div>
@@ -67,23 +60,19 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
 
   const renderJustBrowsing = () => (
     <>
-      <div className="text-center mb-8 animate-slide-down">
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight text-balance">
-          Start by learning how halo therapy works, or skip ahead to a free consultation.
-        </h1>
-      </div>
-
       {renderAssessmentSummary()}
 
-      <div className="flex flex-col gap-3 animate-fade-in" style={{ animationDelay: '300ms' }}>
-        {renderVideoModal(
-          <button
-            className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2"
-          >
-            <Play className="w-4 h-4" />
-            <span>See how halo therapy works</span>
-          </button>
-        )}
+      <div className="flex flex-col gap-3 animate-fade-in">
+        <button
+          onClick={() => setShowVideo(!showVideo)}
+          className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2"
+        >
+          {showVideo ? <ChevronUp className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          <span>See how halo therapy works</span>
+        </button>
+        
+        {showVideo && renderEmbeddedVideo()}
+
         <button
           onClick={onBook}
           className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105"
@@ -109,7 +98,9 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
         </p>
       </div>
 
-      <div className="mb-8 animate-scale-in" style={{ animationDelay: '100ms' }}>
+      {renderAssessmentSummary()}
+
+      <div className="mb-8 animate-scale-in">
         <h3 className="text-lg font-bold text-foreground mb-4">Session Walkthrough</h3>
         <div className="flex flex-col gap-4">
           {[
@@ -129,7 +120,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 animate-fade-in mb-8" style={{ animationDelay: '300ms' }}>
+      <div className="flex flex-col gap-3 animate-fade-in mb-8">
         <button
           onClick={onBook}
           className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105"
@@ -140,15 +131,16 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
           </div>
         </button>
 
-        {renderVideoModal(
-          <button className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2">
-            <Play className="w-4 h-4" />
-            <span>Learn more about how it works</span>
-          </button>
-        )}
-      </div>
+        <button 
+          onClick={() => setShowVideo(!showVideo)}
+          className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2"
+        >
+          {showVideo ? <ChevronUp className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          <span>Here&apos;s exactly what your first session looks like</span>
+        </button>
 
-      {renderAssessmentSummary()}
+        {showVideo && renderEmbeddedVideo()}
+      </div>
     </>
   )
 
@@ -162,108 +154,27 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
           </div>
         </div>
         
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight text-balance">
-          You&apos;re a Great Fit!
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight text-balance">
+          You&apos;ve unlocked a Free 15-Minutes Salt Therapy Consultation with your first session at Aurora Recovery OT in Katy, TX
         </h1>
         <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-          Based on your responses, halotherapy can be an excellent natural solution for your needs.
+          Our team will walk you through exactly what to expect and make sure halotherapy is the right fit for you before you begin
         </p>
       </div>
 
-      <div className="mb-8 animate-scale-in" style={{ animationDelay: '100ms' }}>
-        <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20 rounded-2xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          <div className="relative rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl p-6 md:p-8 shadow-2xl">
-            <div className="flex gap-3 items-start mb-4">
-              <div className="flex-shrink-0">
-                <Sparkles className="w-6 h-6 text-primary animate-float-up" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-foreground mb-2">Your Personal Path Forward</h2>
-                <p className="text-sm text-foreground/80 leading-relaxed">
-                  Book your first 45-minute salt therapy session—absolutely free consultation included. Our specialists will walk you through the experience and answer any questions about how halotherapy can support your specific wellness goals.
-                </p>
-              </div>
-            </div>
+      {renderAssessmentSummary()}
 
-            <div className="flex flex-wrap gap-2 pt-4 border-t border-primary/10">
-              <div className="flex items-center gap-1.5 text-xs text-foreground/70">
-                <Star className="w-3.5 h-3.5 text-secondary" />
-                <span>Trusted by 10,000+ users</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-foreground/70">
-                <Leaf className="w-3.5 h-3.5 text-primary" />
-                <span>100% natural & safe</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mb-8 animate-slide-up" style={{ animationDelay: '200ms' }}>
-        <h3 className="text-lg font-bold text-foreground mb-4">Your Assessment Summary</h3>
-        
-        <div className="grid md:grid-cols-2 gap-2.5">
-          {[
-            { label: 'Current Condition', value: assessment.condition, icon: '🎯' },
-            { label: 'Duration', value: assessment.duration, icon: '⏰' },
-            { label: 'What You\'ve Tried', value: assessment.tried, icon: '✓' },
-            { label: 'Readiness Level', value: assessment.seriousness, icon: '🚀' },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="group rounded-lg border border-border/60 bg-card/60 backdrop-blur-sm p-4 md:p-5 hover:border-primary/40 hover:bg-card hover:shadow-lg transition-all duration-300 animate-slide-up"
-              style={{ animationDelay: `${(index + 3) * 50}ms` }}
-            >
-              <div className="flex gap-2 mb-2">
-                <span className="text-lg">{item.icon}</span>
-                <h4 className="font-bold text-foreground text-xs">{item.label}</h4>
-              </div>
-              <p className="text-sm text-foreground/80 leading-relaxed group-hover:text-foreground transition-colors">
-                {item.value}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3 animate-fade-in" style={{ animationDelay: '300ms' }}>
+      <div className="flex flex-col gap-3 animate-fade-in mb-8">
         <button
           onClick={onBook}
           className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 group-hover:from-primary/90 group-hover:to-primary/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/0 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-          
           <div className="relative flex items-center justify-center gap-2 text-primary-foreground">
-            <span>Book Your Free Session</span>
+            <span>Book Your First Session Now</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </button>
-
-        {renderVideoModal(
-          <button className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2">
-            <Play className="w-4 h-4" />
-            <span>How it works</span>
-          </button>
-        )}
-
-        <button
-          onClick={onStartOver}
-          className="px-6 py-4 border-2 border-primary/30 hover:border-primary/60 text-foreground hover:bg-primary/5 font-bold text-base rounded-lg transition-all duration-300 active:scale-95"
-        >
-          Retake Quiz
-        </button>
-      </div>
-
-      <div className="mt-8 pt-6 text-center border-t border-border/40 animate-fade-in" style={{ animationDelay: '400ms' }}>
-        <p className="text-sm text-foreground/70 mb-2">
-          ⏱️ First available appointments can be scheduled within <span className="font-bold text-primary">24 hours</span>
-        </p>
-        <p className="text-xs text-foreground/50">
-          Your data is safe with us. We never share your information.
-        </p>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronRight, Sparkles, ArrowRight } from 'lucide-react'
+import { ChevronRight, ArrowRight } from 'lucide-react'
 
 export interface QuizAnswer {
   question: number
@@ -108,11 +108,8 @@ export function QuizFlow({
         <div className="mb-8 animate-fade-in">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-white" />
-              </div>
               <span className="text-xs font-bold text-foreground/70 uppercase tracking-wider">
-                Step {currentQuestion} of {questions.length}
+                {currentQuestion} of {questions.length}
               </span>
             </div>
             <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full backdrop-blur">
