@@ -79,7 +79,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 group-hover:from-primary/90 group-hover:to-primary/70" />
           <div className="relative flex items-center justify-center gap-2 text-primary-foreground">
-            <span>Get a Free 15-Minute Salt Therapy Consultation</span>
+            <span>Get a Free 15-Minute Salt Therapy Consultation at Aurora Recovery in Katy, TX</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </button>
@@ -89,15 +89,6 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
 
   const renderSomewhatInterested = () => (
     <>
-      <div className="text-center mb-8 animate-slide-down">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight text-balance">
-          Somewhat interested?
-        </h1>
-        <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-          Here&apos;s exactly what your first halotherapy session at Aurora Recovery will look like:
-        </p>
-      </div>
-
       {renderAssessmentSummary()}
 
       <div className="mb-8 animate-scale-in">
@@ -127,7 +118,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 group-hover:from-primary/90 group-hover:to-primary/70" />
           <div className="relative flex items-center justify-center gap-2 text-primary-foreground text-center">
-            <span>Get a Free 15-Minute Salt Therapy Consultation</span>
+            <span>Get a Free 15-Minute Salt Therapy Consultation at Aurora Recovery in Katy, TX</span>
           </div>
         </button>
 
@@ -157,9 +148,6 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
         <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight text-balance">
           You&apos;ve unlocked a Free 15-Minutes Salt Therapy Consultation with your first session at Aurora Recovery OT in Katy, TX
         </h1>
-        <p className="text-base md:text-lg text-foreground/70 max-w-2xl mx-auto">
-          Our team will walk you through exactly what to expect and make sure halotherapy is the right fit for you before you begin
-        </p>
       </div>
 
       {renderAssessmentSummary()}
