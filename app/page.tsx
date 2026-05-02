@@ -4,14 +4,35 @@ import { useState } from 'react'
 import { LandingPage } from '@/components/landing-page'
 import { QuizFlow, QuizAnswer } from '@/components/quiz-flow'
 import { ResultsPage } from '@/components/results-page'
+import { ThankYouPage } from '@/components/thank-you-page'
 import { getCalApi } from '@calcom/embed-react'
+import { useEffect } from 'react'
 
-type PageState = 'landing' | 'quiz' | 'results'
+type PageState = 'landing' | 'quiz' | 'results' | 'thank-you'
 
 export default function Home() {
   const [pageState, setPageState] = useState<PageState>('landing')
   const [currentQuestion, setCurrentQuestion] = useState(1)
   const [answers, setAnswers] = useState<QuizAnswer[]>([])
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: 'halotherapy' });
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: (event) => {
+          console.log("Booking successful", event);
+          
+          // Safely trigger the Facebook Pixel 'Lead' event
+          if (typeof window !== 'undefined' && (window as any).fbq) {
+            (window as any).fbq('track', 'Lead');
+          }
+
+          setPageState('thank-you');
+        }
+      });
+    })();
+  }, []);
 
   const handleStartQuiz = () => {
     setPageState('quiz')
@@ -99,6 +120,9 @@ export default function Home() {
           onStartOver={handleStartOver}
           onBack={() => setPageState('quiz')}
         />
+      )}
+      {pageState === 'thank-you' && (
+        <ThankYouPage onBackToHome={handleStartOver} />
       )}
     </>
   )
