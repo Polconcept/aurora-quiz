@@ -22,12 +22,6 @@ export default function Home() {
         action: "bookingSuccessful",
         callback: (event) => {
           console.log("Booking successful", event);
-          
-          // Safely trigger the Facebook Pixel 'Lead' event
-          if (typeof window !== 'undefined' && (window as any).fbq) {
-            (window as any).fbq('track', 'Lead');
-          }
-
           setPageState('thank-you');
         }
       });
