@@ -7,6 +7,7 @@ import { ResultsPage } from '@/components/results-page'
 import { ThankYouPage } from '@/components/thank-you-page'
 import { getCalApi } from '@calcom/embed-react'
 import { useEffect } from 'react'
+import { saveQuizSubmission } from '@/lib/actions'
 
 type PageState = 'landing' | 'quiz' | 'results' | 'thank-you'
 
@@ -53,7 +54,24 @@ export default function Home() {
     }
   }
 
-  const handleCompleteQuiz = () => {
+  const handleCompleteQuiz = async () => {
+    const answerMap: { [key: number]: string } = {}
+    answers.forEach((a) => { answerMap[a.question] = a.answer })
+
+    const assessment = {
+      condition: answerMap[1] || 'Unknown',
+      duration:  answerMap[2] || 'Unknown',
+      tried:     answerMap[3] || 'Unknown',
+      seriousness: answerMap[4] || 'Unknown',
+    }
+
+    // Save to database
+    try {
+      await saveQuizSubmission(assessment)
+    } catch (error) {
+      console.error('Failed to save lead:', error)
+    }
+
     setPageState('results')
   }
 
@@ -77,6 +95,9 @@ export default function Home() {
     const calLinkWithParams = `aurorarecovery/halotherapy?${queryParams.toString()}`
 
     try {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'InitiateCheckout');
+      }
       const cal = await getCalApi({ namespace: 'halotherapy' })
       cal('modal', {
         calLink: calLinkWithParams
