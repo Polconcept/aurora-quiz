@@ -5,17 +5,20 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import * as fpixel from '@/lib/fpixel'
 
-export function FacebookPixel() {
+function FacebookPixelEvents() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // This fires on the initial load and every time the path changes
     if ((window as any).fbq) {
       fpixel.pageview()
     }
   }, [pathname, searchParams])
 
+  return null
+}
+
+export function FacebookPixel() {
   return (
     <>
       <Script
@@ -32,8 +35,16 @@ export function FacebookPixel() {
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '2498497057335985');
-            fbq('track', 'PageView');
-            console.log('🚀 FACEBOOK PIXEL INITIALIZED (ID: 2498497057335985)');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const testCode = urlParams.get('test_event_code');
+            if (testCode) {
+              fbq('track', 'PageView', {}, { test_event_code: testCode });
+              console.log('🚀 FACEBOOK PIXEL INITIALIZED WITH TEST CODE:', testCode);
+            } else {
+              fbq('track', 'PageView');
+              console.log('🚀 FACEBOOK PIXEL INITIALIZED (ID: 2498497057335985)');
+            }
           `,
         }}
       />
@@ -46,6 +57,9 @@ export function FacebookPixel() {
           alt=""
         />
       </noscript>
+      <Suspense fallback={null}>
+        <FacebookPixelEvents />
+      </Suspense>
     </>
   )
 }
