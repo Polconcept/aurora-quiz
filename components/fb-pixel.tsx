@@ -5,27 +5,15 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
 import * as fpixel from '@/lib/fpixel'
 
-function PixelEvents() {
+export function FacebookPixel() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
+    // This is the key for SPA tracking: manual PageView on every route change
+    // If there's a test code, it will be handled inside fpixel.pageview()
     fpixel.pageview()
   }, [pathname, searchParams])
-
-  return null
-}
-
-export function FacebookPixel() {
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    const testEventCode = searchParams.get('test_event_code')
-    if (testEventCode && (window as any).fbq) {
-      console.log('FB Pixel: Manual Init with Test Code', testEventCode);
-      (window as any).fbq('init', fpixel.FB_PIXEL_ID, {}, { test_event_code: testEventCode });
-    }
-  }, [searchParams])
 
   return (
     <>
@@ -43,16 +31,8 @@ export function FacebookPixel() {
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             
-            const urlParams = new URLSearchParams(window.location.search);
-            const testCode = urlParams.get('test_event_code');
-            
-            if (testCode) {
-              fbq('init', '${fpixel.FB_PIXEL_ID}', {}, { test_event_code: testCode });
-              fbq('track', 'PageView', {}, { test_event_code: testCode });
-            } else {
-              fbq('init', '${fpixel.FB_PIXEL_ID}');
-              fbq('track', 'PageView');
-            }
+            fbq('init', '2498497057335985');
+            fbq('track', 'PageView');
           `,
         }}
       />
@@ -61,13 +41,10 @@ export function FacebookPixel() {
           height="1"
           width="1"
           style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${fpixel.FB_PIXEL_ID}&ev=PageView&noscript=1`}
+          src="https://www.facebook.com/tr?id=2498497057335985&ev=PageView&noscript=1"
           alt=""
         />
       </noscript>
-      <Suspense fallback={null}>
-        <PixelEvents />
-      </Suspense>
     </>
   )
 }
