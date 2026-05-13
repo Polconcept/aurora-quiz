@@ -30,6 +30,9 @@ export default function Home() {
   }, []);
 
   const handleStartQuiz = () => {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'ViewContent');
+    }
     setPageState('quiz')
     setCurrentQuestion(1)
     setAnswers([])
@@ -67,6 +70,9 @@ export default function Home() {
 
     // Save to database
     try {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'SubmitApplication');
+      }
       await saveQuizSubmission(assessment)
     } catch (error) {
       console.error('Failed to save lead:', error)
