@@ -3,17 +3,14 @@
 import { useEffect, Suspense } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Script from 'next/script'
-
-const PIXEL_ID = '2498497057335985'
+import * as fpixel from '@/lib/fpixel'
 
 function PixelEvents() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'PageView')
-    }
+    fpixel.pageview()
   }, [pathname, searchParams])
 
   return null
@@ -35,8 +32,7 @@ export function FacebookPixel() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${PIXEL_ID}');
-            fbq('track', 'PageView');
+            fbq('init', '${fpixel.FB_PIXEL_ID}');
           `,
         }}
       />
@@ -45,7 +41,7 @@ export function FacebookPixel() {
           height="1"
           width="1"
           style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
+          src={`https://www.facebook.com/tr?id=${fpixel.FB_PIXEL_ID}&ev=PageView&noscript=1`}
           alt=""
         />
       </noscript>

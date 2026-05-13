@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LandingPage } from '@/components/landing-page'
 import { QuizFlow, QuizAnswer } from '@/components/quiz-flow'
 import { ResultsPage } from '@/components/results-page'
 import { ThankYouPage } from '@/components/thank-you-page'
 import { getCalApi } from '@calcom/embed-react'
-import { useEffect } from 'react'
+import * as fpixel from '@/lib/fpixel'
 import { saveQuizSubmission } from '@/lib/actions'
 
 type PageState = 'landing' | 'quiz' | 'results' | 'thank-you'
@@ -30,9 +30,7 @@ export default function Home() {
   }, []);
 
   const handleStartQuiz = () => {
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'ViewContent');
-    }
+    fpixel.event('ViewContent')
     setPageState('quiz')
     setCurrentQuestion(1)
     setAnswers([])
@@ -70,9 +68,7 @@ export default function Home() {
 
     // Save to database
     try {
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'SubmitApplication');
-      }
+      fpixel.event('SubmitApplication')
       await saveQuizSubmission(assessment)
     } catch (error) {
       console.error('Failed to save lead:', error)
@@ -101,9 +97,7 @@ export default function Home() {
     const calLinkWithParams = `aurorarecovery/halotherapy?${queryParams.toString()}`
 
     try {
-      if (typeof window !== 'undefined' && (window as any).fbq) {
-        (window as any).fbq('track', 'InitiateCheckout');
-      }
+      fpixel.event('InitiateCheckout')
       const cal = await getCalApi({ namespace: 'halotherapy' })
       cal('modal', {
         calLink: calLinkWithParams

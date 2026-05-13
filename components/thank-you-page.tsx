@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { CheckCircle2, MapPin, Phone } from 'lucide-react'
+import * as fpixel from '@/lib/fpixel'
 
 interface ThankYouPageProps {
   onBackToHome: () => void
@@ -9,9 +10,7 @@ interface ThankYouPageProps {
 
 export function ThankYouPage({ onBackToHome }: ThankYouPageProps) {
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'Lead');
-    }
+    fpixel.event('Lead')
   }, []);
 
   const addressLink = "https://www.google.com/maps/search/605+A+park+grove+dr+katy+texas+77450?entry=gmail&source=g"
