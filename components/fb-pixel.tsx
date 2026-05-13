@@ -17,6 +17,16 @@ function PixelEvents() {
 }
 
 export function FacebookPixel() {
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const testEventCode = searchParams.get('test_event_code')
+    if (testEventCode && (window as any).fbq) {
+      console.log('FB Pixel: Manual Init with Test Code', testEventCode);
+      (window as any).fbq('init', fpixel.FB_PIXEL_ID, {}, { test_event_code: testEventCode });
+    }
+  }, [searchParams])
+
   return (
     <>
       <Script
@@ -32,7 +42,17 @@ export function FacebookPixel() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${fpixel.FB_PIXEL_ID}');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const testCode = urlParams.get('test_event_code');
+            
+            if (testCode) {
+              fbq('init', '${fpixel.FB_PIXEL_ID}', {}, { test_event_code: testCode });
+              fbq('track', 'PageView', {}, { test_event_code: testCode });
+            } else {
+              fbq('init', '${fpixel.FB_PIXEL_ID}');
+              fbq('track', 'PageView');
+            }
           `,
         }}
       />
