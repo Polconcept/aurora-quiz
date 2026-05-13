@@ -10,15 +10,16 @@ export function FacebookPixel() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // This is the key for SPA tracking: manual PageView on every route change
-    // If there's a test code, it will be handled inside fpixel.pageview()
-    fpixel.pageview()
+    // This fires on the initial load and every time the path changes
+    if ((window as any).fbq) {
+      fpixel.pageview()
+    }
   }, [pathname, searchParams])
 
   return (
     <>
       <Script
-        id="fb-pixel"
+        id="fb-pixel-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -30,9 +31,9 @@ export function FacebookPixel() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            
             fbq('init', '2498497057335985');
             fbq('track', 'PageView');
+            console.log('🚀 FACEBOOK PIXEL INITIALIZED (ID: 2498497057335985)');
           `,
         }}
       />
