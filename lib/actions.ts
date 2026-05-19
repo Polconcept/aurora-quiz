@@ -1,11 +1,6 @@
 "use server";
 
-export async function saveQuizSubmission(assessment: {
-  condition: string;
-  duration: string;
-  tried: string;
-  seriousness: string;
-}) {
+export async function saveQuizSubmission(payload: any) {
   const webhookUrl = process.env.LATENODE_WEBHOOK_URL;
 
   if (!webhookUrl) {
@@ -20,7 +15,7 @@ export async function saveQuizSubmission(assessment: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ...assessment,
+        ...payload,
         source: "Quiz Flow",
         timestamp: new Date().toISOString(),
       }),

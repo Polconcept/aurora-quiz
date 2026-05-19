@@ -15,6 +15,7 @@ export default function Home() {
   const [pageState, setPageState] = useState<PageState>('landing')
   const [currentQuestion, setCurrentQuestion] = useState(1)
   const [answers, setAnswers] = useState<QuizAnswer[]>([])
+  const [bookingDetails, setBookingDetails] = useState<any>(null)
 
   useEffect(() => {
     (async function () {
@@ -23,6 +24,9 @@ export default function Home() {
         action: "bookingSuccessful",
         callback: (event) => {
           console.log("Booking successful", event);
+          if (event?.detail) {
+            setBookingDetails(event.detail);
+          }
           setPageState('thank-you');
         }
       });
@@ -69,7 +73,10 @@ export default function Home() {
     // Save to database
     try {
       fpixel.event('SubmitApplication')
-      await saveQuizSubmission(assessment)
+      await saveQuizSubmission({
+        ...assessment,
+        bookingDetails
+      })
     } catch (error) {
       console.error('Failed to save lead:', error)
     }
@@ -134,15 +141,7 @@ export default function Home() {
         />
       )}
       {pageState === 'results' && (
-        <ResultsPage
-          answers={answers}
-          onBook={handleBook}
-          onStartOver={handleStartOver}
-          onBack={() => {
-            setPageState('quiz')
-            setCurrentQuestion(4)
-          }}
-        />
+        <ResultsPage answers={answers} />
       )}
       {pageState === 'thank-you' && (
         <ThankYouPage 
