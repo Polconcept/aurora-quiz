@@ -1,12 +1,15 @@
 'use client'
 
 import { QuizAnswer } from './quiz-flow'
+import { ArrowLeft } from 'lucide-react'
 
 interface ResultsPageProps {
   answers: QuizAnswer[]
+  onBack: () => void
+  onStartOver: () => void
 }
 
-export function ResultsPage({ answers }: ResultsPageProps) {
+export function ResultsPage({ answers, onBack, onStartOver }: ResultsPageProps) {
   // Map answers to display labels
   const answerMap: { [key: number]: string } = {}
   answers.forEach((answer) => {
@@ -51,6 +54,14 @@ export function ResultsPage({ answers }: ResultsPageProps) {
 
       <div className="relative z-10 px-4 md:px-8 py-12 min-h-screen flex flex-col items-center">
         <div className="w-full max-w-2xl pt-6">
+          <button
+            onClick={onBack}
+            className="group flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors mb-8 animate-fade-in"
+          >
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            <span className="font-bold">Back</span>
+          </button>
+
           {renderAssessmentSummary()}
 
           <div className="mb-8 animate-scale-in">
@@ -74,9 +85,16 @@ export function ResultsPage({ answers }: ResultsPageProps) {
           </div>
 
           <div className="text-center mt-12 mb-6 animate-fade-in">
-            <h2 className="text-2xl font-bold text-[#2D241E]">
+            <h2 className="text-2xl font-bold text-[#2D241E] mb-6">
               See you soon
             </h2>
+
+            <button
+              onClick={onStartOver}
+              className="text-sm font-medium text-foreground/50 hover:text-foreground/80 underline underline-offset-4 transition-colors"
+            >
+              Start Over
+            </button>
           </div>
         </div>
       </div>

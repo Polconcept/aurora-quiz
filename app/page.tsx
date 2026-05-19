@@ -141,7 +141,14 @@ export default function Home() {
         />
       )}
       {pageState === 'results' && (
-        <ResultsPage answers={answers} />
+        <ResultsPage
+          answers={answers}
+          onStartOver={handleStartOver}
+          onBack={() => {
+            setPageState('quiz')
+            setCurrentQuestion(4)
+          }}
+        />
       )}
       {pageState === 'thank-you' && (
         <ThankYouPage 
