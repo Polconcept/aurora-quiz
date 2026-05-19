@@ -68,6 +68,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
       role: "Verified Guest • 5 reviews",
       rating: 5,
       time: "2 months ago",
+      image: "/oyatola.jpg",
       text: (
         <>
           As a new mom, I’ve been feeling exhausted, stressed, and not sleeping well, so I decided to try the salt therapy room at Aurora Recovery Occupational Therapy—and it was such a beautiful experience. The space is calm, peaceful, and designed in a way that makes you feel relaxed the moment you walk in. Sitting in the halotherapy room and <strong>breathing</strong> in the salt-infused air felt incredibly soothing.
