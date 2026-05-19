@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CheckCircle2, ArrowRight, Play, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Play, ArrowLeft, ChevronUp } from 'lucide-react'
 import { QuizAnswer } from './quiz-flow'
 
 interface ResultsPageProps {
@@ -13,7 +13,7 @@ interface ResultsPageProps {
 
 export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPageProps) {
   const [showVideo, setShowVideo] = useState(false)
-  
+
   // Map answers to display labels
   const answerMap: { [key: number]: string } = {}
   answers.forEach((answer) => {
@@ -29,9 +29,9 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
 
   const renderEmbeddedVideo = () => (
     <div className="mt-4 animate-fade-in w-full overflow-hidden rounded-xl border border-border/40 bg-black aspect-video relative">
-      <video 
-        src="/_How Halo Therapy Works_.mp4" 
-        controls 
+      <video
+        src="/_How Halo Therapy Works_.mp4"
+        controls
         className="w-full h-full object-contain"
       />
     </div>
@@ -40,7 +40,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
   const renderAssessmentSummary = () => (
     <div className="mb-8 animate-slide-up">
       <h3 className="text-lg font-bold text-foreground mb-4 text-left">Your Assessment Summary</h3>
-      
+
       <div className="flex flex-col gap-3">
         <div className="rounded-lg border border-border/40 bg-card/40 p-4">
           <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Current condition:</h4>
@@ -70,7 +70,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
           {showVideo ? <ChevronUp className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           <span>See how halo therapy works</span>
         </button>
-        
+
         {showVideo && renderEmbeddedVideo()}
 
         <button
@@ -122,7 +122,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
           </div>
         </button>
 
-        <button 
+        <button
           onClick={() => setShowVideo(!showVideo)}
           className="flex-1 group relative overflow-hidden rounded-lg p-4 font-bold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-primary text-primary hover:bg-primary/5 flex items-center justify-center gap-2"
         >
@@ -144,7 +144,7 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
             <CheckCircle2 className="relative w-16 h-16 text-primary animate-bounce" />
           </div>
         </div>
-        
+
         <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight text-balance">
           You&apos;ve unlocked a Free 15-Minutes Salt Therapy Consultation with your first session at Aurora Recovery OT in Katy, TX
         </h1>
@@ -168,7 +168,8 @@ export function ResultsPage({ answers, onBook, onStartOver, onBack }: ResultsPag
   )
 
   return (
-    <main className="min-h-screen bg-background relative overflow-hidden flex flex-col">
+    <main className="min-h-screen bg-background relative overflow-hidden flex flex-col" suppressHydrationWarning>
+      {/* Background Blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/8 rounded-full blur-3xl -mr-48 -mt-24" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -ml-48 -mb-24" />

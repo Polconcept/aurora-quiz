@@ -117,7 +117,12 @@ export default function Home() {
 
   return (
     <>
-      {pageState === 'landing' && <LandingPage onStartQuiz={handleStartQuiz} />}
+      {pageState === 'landing' && (
+        <LandingPage 
+          onBook={handleBook} 
+          onStartQuiz={handleStartQuiz} 
+        />
+      )}
       {pageState === 'quiz' && (
         <QuizFlow
           currentQuestion={currentQuestion}
@@ -133,11 +138,17 @@ export default function Home() {
           answers={answers}
           onBook={handleBook}
           onStartOver={handleStartOver}
-          onBack={() => setPageState('quiz')}
+          onBack={() => {
+            setPageState('quiz')
+            setCurrentQuestion(4)
+          }}
         />
       )}
       {pageState === 'thank-you' && (
-        <ThankYouPage onBackToHome={handleStartOver} />
+        <ThankYouPage 
+          onBackToHome={handleStartOver} 
+          onStartQuiz={handleStartQuiz} 
+        />
       )}
     </>
   )

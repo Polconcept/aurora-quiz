@@ -6,9 +6,10 @@ import * as fpixel from '@/lib/fpixel'
 
 interface ThankYouPageProps {
   onBackToHome: () => void
+  onStartQuiz: () => void
 }
 
-export function ThankYouPage({ onBackToHome }: ThankYouPageProps) {
+export function ThankYouPage({ onBackToHome, onStartQuiz }: ThankYouPageProps) {
   useEffect(() => {
     fpixel.event('Lead')
   }, []);
@@ -73,9 +74,20 @@ export function ThankYouPage({ onBackToHome }: ThankYouPageProps) {
             </div>
           </div>
 
+          {/* Optional Quiz Button */}
+          <div className="w-full max-w-sm mx-auto mt-10">
+            <button
+              onClick={onStartQuiz}
+              className="w-full group py-3 px-6 border-2 border-primary text-primary hover:bg-primary/5 font-semibold text-base rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              suppressHydrationWarning
+            >
+              <span>Take a 10-second quiz to see if halotherapy is for you</span>
+            </button>
+          </div>
+
           <button
             onClick={onBackToHome}
-            className="mt-12 text-sm font-medium text-foreground/50 hover:text-foreground/80 underline underline-offset-4 transition-colors"
+            className="mt-6 text-sm font-medium text-foreground/50 hover:text-foreground/80 underline underline-offset-4 transition-colors"
           >
             Back to Home
           </button>
