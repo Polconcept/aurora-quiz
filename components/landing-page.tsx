@@ -159,12 +159,9 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
         {/* Testimonials Section */}
         <div className="w-full max-w-4xl mt-10 mb-4 border-t border-[#964B00]/10 pt-8">
           <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#2D241E] mb-2">
-              Loved by Our Community
+            <h2 className="text-2xl md:text-3xl font-bold text-[#2D241E]">
+              What our patients say
             </h2>
-            <p className="text-sm md:text-base text-[#2D241E]/60 max-w-xl mx-auto">
-              See how Aurora Recovery is helping people breathe easier, sleep better, and find natural relief.
-            </p>
           </div>
  
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
