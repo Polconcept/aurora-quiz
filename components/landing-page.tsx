@@ -23,6 +23,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
       role: "Local Guide • 56 reviews",
       rating: 5,
       time: "a month ago",
+      image: "/Lynn Picos.jpg",
       text: (
         <>
           I&apos;ve been suffering from bronchitis and after my second session in the salt room I was able to <strong>breathe</strong> better less coughing and I had so much more energy! I was skeptical but now I&apos;m a believer.
@@ -49,6 +50,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
       role: "Verified Guest • 1 review",
       rating: 5,
       time: "a month ago",
+      image: "/Lindsay Phillips.jpg",
       text: (
         <>
           The space at Aurora Recovery immediately felt elevated, clean, calming, and zen-like in its aesthetic. It set the tone before anything even began.
@@ -189,9 +191,17 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
  
                 {/* Author Info */}
                 <div className="flex items-center gap-3 border-t border-[#964B00]/5 pt-4 mt-auto">
-                  <div className={`w-10 h-10 rounded-full ${t.avatarBg} flex items-center justify-center font-bold text-sm shadow-sm`}>
-                    {t.initials}
-                  </div>
+                  {t.image ? (
+                    <img 
+                      src={t.image} 
+                      alt={t.name} 
+                      className="w-10 h-10 rounded-full object-cover shadow-sm"
+                    />
+                  ) : (
+                    <div className={`w-10 h-10 rounded-full ${t.avatarBg} flex items-center justify-center font-bold text-sm shadow-sm`}>
+                      {t.initials}
+                    </div>
+                  )}
                   <div>
                     <h4 className="font-bold text-sm text-[#2D241E]">{t.name}</h4>
                     <p className="text-xs text-[#2D241E]/50">{t.role}</p>
