@@ -124,7 +124,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
               className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               suppressHydrationWarning
             >
-              <span>Get a Free 15-Minute Salt Therapy Consultation</span>
+              <span>Get a Free 15-Minute Halo Therapy Consultation</span>
             </button>
           </div>
         </div>
@@ -155,7 +155,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
             className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             suppressHydrationWarning
           >
-            <span>Get a Free 15-Minute Salt Therapy Consultation</span>
+            <span>Get a Free 15-Minute Halo Therapy Consultation</span>
           </button>
         </div>
  
@@ -220,7 +220,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
             className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             suppressHydrationWarning
           >
-            <span>Get a Free 15-Minute Salt Therapy Consultation</span>
+            <span>Get a Free 15-Minute Halo Therapy Consultation</span>
           </button>
         </div>
       </div>
