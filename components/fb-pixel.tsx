@@ -34,7 +34,7 @@ export function FacebookPixel() {
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '2498497057335985');
+            fbq('init', '1635280437743941');
             
             const urlParams = new URLSearchParams(window.location.search);
             const testCode = urlParams.get('test_event_code');
@@ -43,7 +43,7 @@ export function FacebookPixel() {
               console.log('🚀 FACEBOOK PIXEL INITIALIZED WITH TEST CODE:', testCode);
             } else {
               fbq('track', 'PageView');
-              console.log('🚀 FACEBOOK PIXEL INITIALIZED (ID: 2498497057335985)');
+              console.log('🚀 FACEBOOK PIXEL INITIALIZED (ID: 1635280437743941)');
             }
           `,
         }}
@@ -53,7 +53,7 @@ export function FacebookPixel() {
           height="1"
           width="1"
           style={{ display: 'none' }}
-          src="https://www.facebook.com/tr?id=2498497057335985&ev=PageView&noscript=1"
+          src="https://www.facebook.com/tr?id=1635280437743941&ev=PageView&noscript=1"
           alt=""
         />
       </noscript>

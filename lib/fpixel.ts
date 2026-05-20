@@ -1,4 +1,4 @@
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || '2498497057335985'
+export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || '1635280437743941'
 
 const getTestEventCode = () => {
   if (typeof window !== 'undefined') {
