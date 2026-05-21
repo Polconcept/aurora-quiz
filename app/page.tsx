@@ -16,8 +16,17 @@ export default function Home() {
   const [currentQuestion, setCurrentQuestion] = useState(1)
   const [answers, setAnswers] = useState<QuizAnswer[]>([])
   const [bookingDetails, setBookingDetails] = useState<any>(null)
+  const [bookingId, setBookingId] = useState<string | null>(null)
 
   useEffect(() => {
+    // Check URL for booking ID on mount (in case of redirect)
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get('bookingId') || params.get('booking_uid')
+    if (id) {
+      console.log('📍 Booking ID captured from URL:', id)
+      setBookingId(id)
+    }
+
     (async function () {
       const cal = await getCalApi({ namespace: 'halotherapy' });
       cal("on", {
@@ -26,6 +35,11 @@ export default function Home() {
           console.log("Booking successful", event);
           if (event?.detail) {
             setBookingDetails(event.detail);
+            const eventBookingId = event.detail.bookingId || event.detail.id;
+            if (eventBookingId) {
+              console.log('📍 Booking ID captured from Event:', eventBookingId);
+              setBookingId(String(eventBookingId));
+            }
           }
           setPageState('thank-you');
         }
@@ -34,7 +48,7 @@ export default function Home() {
   }, []);
 
   const handleStartQuiz = () => {
-    fpixel.event('ViewContent')
+    fpixel.event('InitiateCheckout')
     setPageState('quiz')
     setCurrentQuestion(1)
     setAnswers([])
@@ -72,9 +86,10 @@ export default function Home() {
 
     // Save to database
     try {
-      fpixel.event('SubmitApplication')
+      fpixel.event('Subscribe')
       await saveQuizSubmission({
-        ...assessment,
+        bookingId,
+        answers: assessment,
         bookingDetails
       })
     } catch (error) {
@@ -104,7 +119,6 @@ export default function Home() {
     const calLinkWithParams = `aurorarecovery/halotherapy?${queryParams.toString()}`
 
     try {
-      fpixel.event('InitiateCheckout')
       const cal = await getCalApi({ namespace: 'halotherapy' })
       cal('modal', {
         calLink: calLinkWithParams

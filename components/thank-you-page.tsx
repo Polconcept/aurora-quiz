@@ -14,6 +14,11 @@ export function ThankYouPage({ onBackToHome, onStartQuiz }: ThankYouPageProps) {
     fpixel.event('Lead')
   }, []);
 
+  const handleQuizStart = () => {
+    fpixel.event('InitiateCheckout')
+    onStartQuiz()
+  }
+
   const addressLink = "https://www.google.com/maps/search/605+A+park+grove+dr+katy+texas+77450?entry=gmail&source=g"
   const addressText = "A park grove dr katy texas 77450"
   const phoneNumber = "(832) 437-0242" // Placeholder or found if possible. I'll use a clear placeholder if unsure.
@@ -77,7 +82,7 @@ export function ThankYouPage({ onBackToHome, onStartQuiz }: ThankYouPageProps) {
           {/* Optional Quiz Button */}
           <div className="w-full max-w-sm mx-auto mt-10">
             <button
-              onClick={onStartQuiz}
+              onClick={handleQuizStart}
               className="w-full group py-3 px-6 border-2 border-primary text-primary hover:bg-primary/5 font-semibold text-base rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               suppressHydrationWarning
             >
