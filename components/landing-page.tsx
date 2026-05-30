@@ -99,11 +99,11 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
         {/* Hero Section */}
         <div className="text-center mb-6">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-3 leading-tight text-balance" suppressHydrationWarning>
-            Still Managing Symptoms That Never Fully Go Away?
+            Want to Finally Breathe Freely, Sleep Better & Feel Calm,<br className="hidden md:block" /> Without Relying on Inhalers, Allergy Pills,<br className="hidden md:block" /> or Steroid Creams?
           </h1>
           
           <p className="text-base md:text-lg text-[#2D241E]/70 mb-5 leading-relaxed text-balance max-w-2xl mx-auto" suppressHydrationWarning>
-            Whether it&apos;s allergies, skin flare-ups, or a mind that won&apos;t switch off, find out if halotherapy is the natural, drug-free relief you&apos;ve been looking for. Takes 10 seconds.
+            Book a FREE 15-Minute Halo Therapy Consultation and discover how one session in our salt room can start clearing your airways and melt away stress naturally. 👇
           </p>
  
           {/* Top CTA Button */}
@@ -124,39 +124,9 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
               className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
               suppressHydrationWarning
             >
-              <span>Get a Free 15-Minute Halo Therapy Consultation</span>
+              <span>Book a Halo Therapy Session</span>
             </button>
           </div>
-        </div>
- 
-        {/* Benefits List Section */}
-        <div className="max-w-xl mx-auto my-6 w-full">
-          <div className="space-y-2">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 text-left"
-              >
-                <div className="flex-shrink-0 mt-1">
-                  <CheckCircle2 className="w-5 h-5 text-[#964B00]" />
-                </div>
-                <p className="text-base md:text-lg text-[#2D241E]/80 leading-snug">
-                  {benefit}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
- 
-        {/* Middle CTA Button */}
-        <div className="w-full max-w-sm mx-auto my-3 flex flex-col items-center justify-center gap-3">
-          <button
-            onClick={onBook}
-            className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
-            suppressHydrationWarning
-          >
-            <span>Get a Free 15-Minute Halo Therapy Consultation</span>
-          </button>
         </div>
  
         {/* Testimonials Section */}
@@ -213,6 +183,25 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
           </div>
         </div>
  
+        {/* Benefits List Section */}
+        <div className="max-w-xl mx-auto my-6 w-full">
+          <div className="space-y-2">
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 text-left"
+              >
+                <div className="flex-shrink-0 mt-1">
+                  <CheckCircle2 className="w-5 h-5 text-[#964B00]" />
+                </div>
+                <p className="text-base md:text-lg text-[#2D241E]/80 leading-snug">
+                  {benefit}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+ 
         {/* Testimonials Bottom CTA Button */}
         <div className="w-full max-w-sm mx-auto mt-6 mb-8 flex flex-col items-center justify-center gap-3">
           <button
@@ -220,7 +209,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
             className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             suppressHydrationWarning
           >
-            <span>Get a Free 15-Minute Halo Therapy Consultation</span>
+            <span>Book a Halo Therapy Session</span>
           </button>
         </div>
       </div>
