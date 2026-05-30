@@ -78,10 +78,21 @@ export function QuizFlow({
 
   const current = questions[currentQuestion - 1]
   const selectedAnswer = answers.find((a) => a.question === currentQuestion)?.answer
+  const selectedAnswers = selectedAnswer ? selectedAnswer.split(', ') : []
   const progressPercent = ((currentQuestion - 1) / questions.length) * 100
 
-  const handleAnswer = (answer: string) => {
-    onAnswer(answer)
+  const handleAnswer = (option: string) => {
+    if (currentQuestion === 3) {
+      let newAnswers: string[]
+      if (selectedAnswers.includes(option)) {
+        newAnswers = selectedAnswers.filter((a) => a !== option)
+      } else {
+        newAnswers = [...selectedAnswers, option]
+      }
+      onAnswer(newAnswers.join(', '))
+    } else {
+      onAnswer(option)
+    }
   }
 
   const handleNext = () => {
@@ -92,7 +103,7 @@ export function QuizFlow({
     }
   }
 
-  const isAnswered = !!selectedAnswer
+  const isAnswered = selectedAnswers.length > 0
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center px-4 py-8 relative overflow-hidden">
@@ -138,7 +149,7 @@ export function QuizFlow({
         {/* Modern Pill-Style Options Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
           {current.options.map((option, index) => {
-            const isSelected = selectedAnswer === option
+            const isSelected = selectedAnswers.includes(option)
             return (
               <button
                 key={index}
