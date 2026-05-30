@@ -5,11 +5,12 @@ import { ArrowLeft } from 'lucide-react'
 
 interface ResultsPageProps {
   answers: QuizAnswer[]
+  bookingId: string | null
   onBack: () => void
   onStartOver: () => void
 }
 
-export function ResultsPage({ answers, onBack, onStartOver }: ResultsPageProps) {
+export function ResultsPage({ answers, bookingId, onBack, onStartOver }: ResultsPageProps) {
   // Map answers to display labels
   const answerMap: { [key: number]: string } = {}
   answers.forEach((answer) => {
@@ -25,20 +26,31 @@ export function ResultsPage({ answers, onBack, onStartOver }: ResultsPageProps) 
 
   const renderAssessmentSummary = () => (
     <div className="mb-8 animate-slide-up">
-      <h3 className="text-lg font-bold text-foreground mb-4 text-left">Your Assessment Summary</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-foreground text-left">Your Assessment Summary</h3>
+        {bookingId && (
+          <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+            Booking ID: {bookingId}
+          </span>
+        )}
+      </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="rounded-lg border border-border/40 bg-card/40 p-4">
           <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Current condition:</h4>
           <p className="text-sm text-foreground/80">{assessment.condition}</p>
         </div>
         <div className="rounded-lg border border-border/40 bg-card/40 p-4">
-          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">How long it has been going on:</h4>
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Duration:</h4>
           <p className="text-sm text-foreground/80">{assessment.duration}</p>
         </div>
         <div className="rounded-lg border border-border/40 bg-card/40 p-4">
-          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">What you have already tried:</h4>
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Previously tried:</h4>
           <p className="text-sm text-foreground/80">{assessment.tried}</p>
+        </div>
+        <div className="rounded-lg border border-border/40 bg-card/40 p-4">
+          <h4 className="font-bold text-foreground text-xs mb-1 uppercase tracking-wider">Commitment Level:</h4>
+          <p className="text-sm text-foreground/80">{assessment.seriousness}</p>
         </div>
       </div>
     </div>

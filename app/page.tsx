@@ -157,6 +157,7 @@ export default function Home() {
       {pageState === 'results' && (
         <ResultsPage
           answers={answers}
+          bookingId={bookingId}
           onStartOver={handleStartOver}
           onBack={() => {
             setPageState('quiz')

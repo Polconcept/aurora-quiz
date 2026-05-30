@@ -98,16 +98,25 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 md:px-8 py-8 max-w-4xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-6">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-3 leading-tight text-balance" suppressHydrationWarning>
-            Want to Finally Breathe Freely, Sleep Better & Feel Calm,<br className="hidden md:block" /> Without Relying on Inhalers, Allergy Pills,<br className="hidden md:block" /> or Steroid Creams?
-          </h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2D241E] mb-3 leading-tight max-w-[950px] mx-auto tracking-wide" suppressHydrationWarning>
+             Want to finally breathe freely, sleep better & feel calm,<br className="hidden md:block" /> without relying on inhalers, allergy pills,<br className="hidden md:block" /> or steroid creams?
+           </h1>
           
           <p className="text-base md:text-lg text-[#2D241E]/70 mb-5 leading-relaxed text-balance max-w-2xl mx-auto" suppressHydrationWarning>
-            Book a FREE 15-Minute Halo Therapy Consultation and discover how one session in our salt room can start clearing your airways and melt away stress naturally. 👇
+            Book a FREE 15-Minute Halo Therapy Consultation and discover how one session in our salt room can start clearing your airways and melt away stress naturally.
+            <span className="block mt-2">👇</span>
           </p>
  
           {/* Top CTA Button */}
           <div className="flex flex-col items-center justify-center gap-3 w-full max-w-sm mx-auto">
+            <button
+              onClick={onBook}
+              className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              suppressHydrationWarning
+            >
+              <span>Book Here</span>
+            </button>
+
             <button
               onClick={() => setShowTopVideo(!showTopVideo)}
               className="w-full group relative overflow-hidden rounded-lg py-2.5 px-5 font-semibold text-base transition-all duration-300 active:scale-95 hover:scale-105 border-2 border-[#964B00] text-[#964B00] hover:bg-[#964B00]/5 flex items-center justify-center gap-2"
@@ -118,14 +127,6 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
             </button>
             
             {showTopVideo && renderEmbeddedVideo()}
- 
-            <button
-              onClick={onBook}
-              className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
-              suppressHydrationWarning
-            >
-              <span>Book a Halo Therapy Session</span>
-            </button>
           </div>
         </div>
  
@@ -185,6 +186,9 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
  
         {/* Benefits List Section */}
         <div className="max-w-xl mx-auto my-6 w-full">
+          <h3 className="text-xl font-bold text-[#2D241E] mb-4 text-center">
+            Here&apos;s what you&apos;re getting after the sesssion
+          </h3>
           <div className="space-y-2">
             {benefits.map((benefit, index) => (
               <div
@@ -209,7 +213,7 @@ export function LandingPage({ onBook, onStartQuiz }: LandingPageProps) {
             className="w-full group py-2.5 px-5 bg-[#964B00] hover:bg-[#7D3E00] text-white font-semibold text-base rounded-lg shadow-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             suppressHydrationWarning
           >
-            <span>Book a Halo Therapy Session</span>
+            <span>Book Here</span>
           </button>
         </div>
       </div>
